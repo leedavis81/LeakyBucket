@@ -7,7 +7,8 @@ Used for rate limiting / throttling for a rolling period. Bucket continually emp
 
 ### API Limiting
 
-By preloading the last 
+Update the state of the bucket by loading the last volume of requests within your timeframe, and the time of the last request.
+Be sure to update your database (or whatever persistence layer you use) when you've sucessfully performed your rate limited task.
 
 The following example allow for a leaky bucket of 100 requests per minute. 
 ```
@@ -26,6 +27,9 @@ if ($bucket->hasCapacity())
     // Save an entry into your storage area
 
     $bucket->fill();
+} else
+{
+    // Service unavailable - try again later
 }
 
 ```
