@@ -109,7 +109,6 @@ class LeakyBucket
         {
             // reduce the bucket volume by seconds * empty_rate
             $this->volume -= ($diff * $this->empty_rate);
-            echo "Decreasing by " . ($diff * $this->empty_rate) . PHP_EOL;
             $this->last_update = $now;
         }
     }
