@@ -18,7 +18,7 @@ $timeframe = 60         // the time it would take a full bucket to empty (second
 $current_load = {select count(*) from storage where time BETWEEN (now-$timeframe) AND (now)}
 $last_request_time = {DateTime object - select last_request_date from storage}
 
-$bucket = System_LeakyBucket::create($capacity, $timeframe)->load($current_load, $last_request_time);
+$bucket = LeakyBucket::create($capacity, $timeframe)->load($current_load, $last_request_time);
 
 if ($bucket->hasCapacity())
 {
@@ -44,7 +44,7 @@ the following example allow for a leaky bucket of 10 requests for every 30 secon
 $capacity = 10;         // number of request allowed in the bucket before its full
 $timeframe = 30         // the time it would take a full bucket to empty (seconds)
 
-$bucket = System_LeakyBucket::create($capacity, $timeframe);
+$bucket = LeakyBucket::create($capacity, $timeframe);
 while($bucket->hasCapacity(true))
 {
     // .. Perform your task ..
